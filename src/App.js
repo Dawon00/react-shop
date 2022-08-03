@@ -1,5 +1,5 @@
 import "./App.css";
-import { Button, Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
             <img
               src="https://codingapple1.github.io/shop/shoes1.jpg"
               width="80%"
+              alt=""
             ></img>
             <h4>상품명</h4>
             <p>상품 소개</p>
@@ -30,6 +31,7 @@ function App() {
             <img
               src="https://codingapple1.github.io/shop/shoes2.jpg"
               width="80%"
+              alt=""
             ></img>
             <h4>상품명</h4>
             <p>상품 소개</p>
@@ -38,6 +40,7 @@ function App() {
             <img
               src="https://codingapple1.github.io/shop/shoes3.jpg"
               width="80%"
+              alt=""
             ></img>
             <h4>상품명</h4>
             <p>상품 소개</p>
