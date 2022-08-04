@@ -1,7 +1,8 @@
 import "./App.css";
 import { useState } from "react";
-import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import { Container, Nav, Navbar, Row } from "react-bootstrap";
 import data from "./data.js";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   let [shoes] = useState(data);
@@ -12,19 +13,29 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">Shop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/detail">Detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className="main-bg"></div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <div className="main-bg"></div>
 
-      <Container>
-        <Row>
-          <Card shoes={shoes}></Card>
-        </Row>
-      </Container>
+              <Container>
+                <Row>
+                  <Card shoes={shoes}></Card>
+                </Row>
+              </Container>
+            </div>
+          }
+        ></Route>
+        <Route path="/detail" element={<div>상세 페이지</div>}></Route>
+      </Routes>
     </div>
   );
 }
