@@ -1,5 +1,7 @@
 import "./App.css";
+import { useState } from "react";
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import data from "./data.js";
 
 function App() {
   return (
@@ -16,39 +18,35 @@ function App() {
 
       <div className="main-bg"></div>
 
-      <div>
+      <Container>
         <Row>
-          <Col sm>
-            <img
-              src="https://codingapple1.github.io/shop/shoes1.jpg"
-              width="80%"
-              alt=""
-            ></img>
-            <h4>상품명</h4>
-            <p>상품 소개</p>
-          </Col>
-          <Col sm>
-            <img
-              src="https://codingapple1.github.io/shop/shoes2.jpg"
-              width="80%"
-              alt=""
-            ></img>
-            <h4>상품명</h4>
-            <p>상품 소개</p>
-          </Col>
-          <Col sm>
-            <img
-              src="https://codingapple1.github.io/shop/shoes3.jpg"
-              width="80%"
-              alt=""
-            ></img>
-            <h4>상품명</h4>
-            <p>상품 소개</p>
+          <Col>
+            <Item />
           </Col>
         </Row>
-      </div>
+      </Container>
     </div>
   );
+}
+
+function Item() {
+  let [shoes] = useState(data);
+  const renderItem = shoes.map((shoe) => {
+    return (
+      <div>
+        {" "}
+        <img
+          src="https://codingapple1.github.io/shop/shoes1.jpg"
+          width="80%"
+          alt=""
+        ></img>
+        <h4>{shoe.title}</h4>
+        <p>{shoe.content}</p>
+        <p>{shoe.price}</p>
+      </div>
+    );
+  });
+  return <div>{renderItem}</div>;
 }
 
 export default App;
