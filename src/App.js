@@ -1,11 +1,13 @@
 import "./App.css";
 import { useState } from "react";
-import { Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, Row } from "react-bootstrap";
 import data from "./data.js";
-import { Routes, Route, Link } from "react-router-dom";
+import Detail from "./pages/Detail.js";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 
 function App() {
   let [shoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -13,8 +15,34 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">Shop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/detail">Detail</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/detail");
+              }}
+            >
+              Detail
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/about");
+              }}
+            >
+              About
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/event");
+              }}
+            >
+              Event
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -34,8 +62,60 @@ function App() {
             </div>
           }
         ></Route>
-        <Route path="/detail" element={<div>상세 페이지</div>}></Route>
+        <Route path="/detail" element={<Detail />}></Route>
+        <Route path="/about" element={<About />}>
+          <Route path="member" element={<Member />}></Route>
+          <Route path="location" element={<Location />}></Route>
+        </Route>
+
+        <Route path="/event" element={<EventPage />}>
+          <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>}></Route>
+          <Route path="two" element={<p>생일기념 쿠폰받기</p>}></Route>
+        </Route>
+
+        <Route path="*" element={<div>404</div>}></Route>
       </Routes>
+    </div>
+  );
+}
+
+function EventPage() {
+  return (
+    <div>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
+    </div>
+  );
+}
+
+function Member() {
+  return <div>member list</div>;
+}
+function Location() {
+  return <div>location</div>;
+}
+
+function About() {
+  let navigate = useNavigate();
+
+  return (
+    <div>
+      <Button
+        onClick={() => {
+          navigate("/about/member");
+        }}
+      >
+        member
+      </Button>
+      <Button
+        onClick={() => {
+          navigate("/about/location");
+        }}
+      >
+        location
+      </Button>
+
+      <Outlet></Outlet>
     </div>
   );
 }
