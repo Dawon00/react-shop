@@ -9,14 +9,24 @@ let Btn = styled.button`
 `;
 
 function Detail(props) {
-  useEffect(() => {
-    setTimeout(() => {
-      setAlert((alert = false));
-    }, 5000);
-  }, []);
+  let [num, setNum] = useState("");
+  let [Alert, setAlert] = useState(true);
 
-  let [alert, setAlert] = useState(true);
-  let [count, setCount] = useState(0);
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setAlert((Alert = false));
+    }, 5000);
+
+    if (isNaN(num) == true) {
+      alert("숫자를 입력해주세요.");
+    }
+
+    return () => {
+      //useEffect 동작 전에 실행됨
+
+      clearTimeout(a); //타이머 제거
+    };
+  }, [num]); // [] 추가 하면 mount 시 1회 코드실행, state 넣었을 시 state가 변경될 때 마다 코드실행
 
   let { id } = useParams();
   let item = props.shoes.find(function (x) {
@@ -25,7 +35,13 @@ function Detail(props) {
 
   return (
     <div className="container">
-      {alert == true ? (
+      <input
+        onChange={(e) => {
+          setNum(e.target.value);
+        }}
+      ></input>
+
+      {Alert === true ? (
         <div className="alert alert-warning">남은 할인 시간 : 5초</div>
       ) : null}
 
