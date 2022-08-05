@@ -62,7 +62,7 @@ function App() {
             </div>
           }
         ></Route>
-        <Route path="/detail" element={<Detail />}></Route>
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>
         <Route path="/about" element={<About />}>
           <Route path="member" element={<Member />}></Route>
           <Route path="location" element={<Location />}></Route>
