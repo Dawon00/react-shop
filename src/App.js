@@ -3,7 +3,13 @@ import { useState } from "react";
 import { Button, Container, Nav, Navbar, Row } from "react-bootstrap";
 import data from "./data.js";
 import Detail from "./pages/Detail.js";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  useNavigate,
+  Outlet,
+} from "react-router-dom";
 
 function App() {
   let [shoes] = useState(data);
@@ -56,7 +62,7 @@ function App() {
 
               <Container>
                 <Row>
-                  <Card shoes={shoes}></Card>
+                  <Card shoes={shoes} navigate={navigate}></Card>
                 </Row>
               </Container>
             </div>
@@ -129,6 +135,9 @@ function Card(props) {
           src={"https://codingapple1.github.io/shop/shoes" + (i + 1) + ".jpg"}
           width="80%"
           alt=""
+          onClick={() => {
+            props.navigate("/detail/" + i);
+          }}
         ></img>
         <h4>{a.title}</h4>
         <p>{a.content}</p>

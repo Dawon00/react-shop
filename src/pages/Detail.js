@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -8,6 +9,15 @@ let Btn = styled.button`
 `;
 
 function Detail(props) {
+  useEffect(() => {
+    setTimeout(() => {
+      setAlert((alert = false));
+    }, 5000);
+  }, []);
+
+  let [alert, setAlert] = useState(true);
+  let [count, setCount] = useState(0);
+
   let { id } = useParams();
   let item = props.shoes.find(function (x) {
     return x.id == id; //array자료의 id 와 url에 입력한 번호가 같은 경우(조건식)
@@ -15,7 +25,9 @@ function Detail(props) {
 
   return (
     <div className="container">
-      <Btn bg="blue">버튼</Btn>
+      {alert == true ? (
+        <div className="alert alert-warning">남은 할인 시간 : 5초</div>
+      ) : null}
 
       <div className="row">
         <div className="col-md-6">
