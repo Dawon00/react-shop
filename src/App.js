@@ -75,8 +75,6 @@ function App() {
                     .catch(() => {
                       console.log("fail");
                     });
-
-                  axios.post("/adsf", { name: "kim" });
                 }}
               >
                 버튼
@@ -141,7 +139,6 @@ function About() {
     </div>
   );
 }
-
 function Card(props) {
   return props.shoes.map((a, i) => {
     return (
