@@ -3,16 +3,11 @@ import { useState } from "react";
 import { Button, Container, Nav, Navbar, Row } from "react-bootstrap";
 import data from "./data.js";
 import Detail from "./pages/Detail.js";
-import {
-  Routes,
-  Route,
-  useParams,
-  useNavigate,
-  Outlet,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import axios from "axios";
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -57,15 +52,36 @@ function App() {
         <Route
           path="/"
           element={
-            <div>
-              <div className="main-bg"></div>
+            <>
+              <div>
+                <div className="main-bg"></div>
 
-              <Container>
-                <Row>
-                  <Card shoes={shoes} navigate={navigate}></Card>
-                </Row>
-              </Container>
-            </div>
+                <Container>
+                  <Row>
+                    <Card shoes={shoes} navigate={navigate}></Card>
+                  </Row>
+                </Container>
+              </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get("https://codingapple1.github.io/shop/data2.json")
+                    .then((x) => {
+                      console.log(x.data);
+                      setShoes(shoes.concat(x.data));
+                      //let copy = [...shoes, ...x.data];
+                      //setShoes(copy);
+                    })
+                    .catch(() => {
+                      console.log("fail");
+                    });
+
+                  axios.post("/adsf", { name: "kim" });
+                }}
+              >
+                버튼
+              </button>
+            </>
           }
         ></Route>
         <Route path="/detail/:id" element={<Detail shoes={shoes} />}></Route>

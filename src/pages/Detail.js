@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 let Btn = styled.button`
   background: ${(props) => props.bg};
-  color: ${(props) => (props.bg == "blue" ? "white" : "black")};
+  color: ${(props) => (props.bg === "blue" ? "white" : "black")};
   padding: 10px;
 `;
 
@@ -17,7 +17,7 @@ function Detail(props) {
       setAlert((Alert = false));
     }, 5000);
 
-    if (isNaN(num) == true) {
+    if (isNaN(num) === true) {
       alert("숫자를 입력해주세요.");
     }
 
@@ -30,7 +30,7 @@ function Detail(props) {
 
   let { id } = useParams();
   let item = props.shoes.find(function (x) {
-    return x.id == id; //array자료의 id 와 url에 입력한 번호가 같은 경우(조건식)
+    return x.id === id; //array자료의 id 와 url에 입력한 번호가 같은 경우(조건식)
   });
 
   return (
