@@ -13,6 +13,13 @@ function Detail(props) {
   let [num, setNum] = useState("");
   let [Alert, setAlert] = useState(true);
   let [tab, setTab] = useState(0);
+  let [fade1, setFade1] = useState("");
+  useEffect(() => {
+    setFade1("end");
+    return () => {
+      setFade1("");
+    };
+  }, []);
 
   let { id } = useParams();
   let item = props.shoes.find(function (x) {
@@ -36,7 +43,7 @@ function Detail(props) {
   }, [num]); // [] 추가 하면 mount 시 1회 코드실행, state 넣었을 시 state가 변경될 때 마다 코드실행
 
   return (
-    <div className="container">
+    <div className={"container start " + fade1}>
       <input
         onChange={(e) => {
           setNum(e.target.value);
@@ -107,15 +114,31 @@ function Detail(props) {
 }
 
 function TabContent({ tab }) {
-  if (tab == 0) {
-    return <div>content 0</div>;
-  } else if (tab == 1) {
-    return <div>content 1</div>;
-  } else if (tab == 2) {
-    return <div>content 2</div>;
-  } else if (tab == 3) {
-    return <div>content 3</div>;
-  }
+  //tab state 가 변할 때 end를  start 옆에 추가
+  let [fade, setFade] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      //useEffect 전에 실행
+
+      setFade("");
+    };
+  }, [tab]);
+  return (
+    <div className={"start " + fade}>
+      {
+        [
+          <div>내용0</div>,
+          <div>내용1</div>,
+          <div>내용2</div>,
+          <div>내용3</div>,
+        ][tab]
+      }
+    </div>
+  );
 }
 
 export default Detail;
