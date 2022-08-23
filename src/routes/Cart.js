@@ -1,39 +1,42 @@
 import Table from "react-bootstrap/Table";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { changeName, increase, addCount } from "../store";
+
 function Cart() {
-  let a = useSelector((state) => {
+  let state = useSelector((state) => {
     return state;
   });
+  let dispatch = useDispatch();
 
   return (
     <div>
+      {state.user.name}의 장바구니
+      {state.user.age}
       <Table striped>
         <thead>
           <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>id</th>
+            <th>Name</th>
+            <th>Count</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {state.cartdata.map((a, i) => (
+            <tr>
+              <td>{state.cartdata[i].id}</td>
+              <td>{state.cartdata[i].name}</td>
+              <td>{state.cartdata[i].count}</td>
+              <td>
+                <button
+                  onClick={() => {
+                    dispatch(addCount(state.cartdata[i].id));
+                  }}
+                >
+                  +
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
