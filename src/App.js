@@ -2,9 +2,10 @@ import "./App.css";
 import { useState } from "react";
 import { Button, Container, Nav, Navbar, Row } from "react-bootstrap";
 import data from "./data.js";
-import Detail from "./pages/Detail.js";
+import Detail from "./routes/Detail.js";
 import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
+import Cart from "./routes/Cart.js";
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -92,6 +93,7 @@ function App() {
           <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>}></Route>
           <Route path="two" element={<p>생일기념 쿠폰받기</p>}></Route>
         </Route>
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="*" element={<div>404</div>}></Route>
       </Routes>
