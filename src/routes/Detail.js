@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { addItem } from "../store";
+import { useDispatch } from "react-redux";
 
 let Btn = styled.button`
   background: ${(props) => props.bg};
@@ -14,6 +16,7 @@ function Detail(props) {
   let [Alert, setAlert] = useState(true);
   let [tab, setTab] = useState(0);
   let [fade1, setFade1] = useState("");
+  let dispatch = useDispatch();
   useEffect(() => {
     setFade1("end");
     return () => {
@@ -63,7 +66,14 @@ function Detail(props) {
           <h4 className="pt-5">{props.shoes[id].title}</h4>
           <p>{props.shoes[id].content}</p>
           <p>{props.shoes[id].price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(addItem({ id: 4, name: "Red Yordan", count: 5 }));
+            }}
+          >
+            주문하기
+          </button>
         </div>
       </div>
       <Nav fill variant="tabs" defaultActiveKey="link-0">

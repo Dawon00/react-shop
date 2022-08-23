@@ -34,10 +34,13 @@ let cartdata = createSlice({
       });
       state[item].count += 1;
     },
+    addItem(state, action) {
+      state.push(action.payload);
+    },
   },
 });
 
-export let { addCount } = cartdata.actions;
+export let { addCount, addItem } = cartdata.actions;
 
 export default configureStore({
   reducer: {
