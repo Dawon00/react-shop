@@ -17,17 +17,26 @@ function Detail(props) {
   let [tab, setTab] = useState(0);
   let [fade1, setFade1] = useState("");
   let dispatch = useDispatch();
+  let { id } = useParams();
+  let item = props.shoes.find(
+    (x) => String(x.id) === String(id) //array자료의 id 와 url에 입력한 번호가 같은 경우(조건식)
+  );
+
+  useEffect(() => {
+    let x = localStorage.getItem("watched");
+    x = JSON.parse(x);
+    x.push(item.id);
+    x = new Set(x); //set 자료형으로 중복 제거
+    x = Array.from(x); //다시 array로 변환
+    localStorage.setItem("watched", JSON.stringify(x));
+  }, []);
+
   useEffect(() => {
     setFade1("end");
     return () => {
       setFade1("");
     };
   }, []);
-
-  let { id } = useParams();
-  let item = props.shoes.find(function (x) {
-    return x.id === id; //array자료의 id 와 url에 입력한 번호가 같은 경우(조건식)
-  });
 
   useEffect(() => {
     let a = setTimeout(() => {
