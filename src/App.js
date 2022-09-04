@@ -6,6 +6,7 @@ import Detail from "./routes/Detail.js";
 import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
 import Cart from "./routes/Cart.js";
+import { useQuery } from "react-query";
 
 function App() {
   useEffect(() => {
@@ -14,6 +15,16 @@ function App() {
 
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
+  //서버에서 사용자 이름 가져오기(자동 refetch)
+  let username = useQuery("username", () => {
+    return (
+      axios.get("https://codingapple1.github.io/userdata.json").then((a) => {
+        return a.data;
+      }),
+      { staleTime: 2000 }
+    ); //refetch 간격 2초 설정
+  });
 
   return (
     <div className="App">
@@ -55,6 +66,13 @@ function App() {
               }}
             >
               Cart
+            </Nav.Link>
+          </Nav>
+          <Nav className="me-auto">
+            <Nav.Link>
+              {username.isLoading
+                ? "loading..."
+                : "환영합니다, " + username.data.name + "님 !"}
             </Nav.Link>
           </Nav>
         </Container>
